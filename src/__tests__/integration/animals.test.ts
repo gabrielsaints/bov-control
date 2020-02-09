@@ -50,6 +50,45 @@ describe('API Animals', () => {
     expect(isAnimal(response.body.animals[0])).toBe(true);
   });
 
+  test('`GET /animals/:id` should return `422` sending invalid format', async () => {
+    expect.assertions(2);
+
+    const response = await request().get(`/animals/${chance.hash()}`);
+
+    expect(response.status).toBe(422);
+    expect(response.body.animal).not.toBeDefined();
+  });
+
+  test('`GET /animals/:id` should return `400` with invalid data', async () => {
+    expect.assertions(2);
+
+    const response = await request().get(
+      `/animals/${Types.ObjectId()}?test=${chance.hash()}`,
+    );
+
+    expect(response.status).toBe(400);
+    expect(response.body.animal).not.toBeDefined();
+  });
+
+  test('`GET /animals/:id` should return `404` with invalid id', async () => {
+    expect.assertions(2);
+
+    const response = await request().get(`/animals/${Types.ObjectId()}`);
+
+    expect(response.status).toBe(404);
+    expect(response.body.animal).not.toBeDefined();
+  });
+
+  test('`GET /animals/:id` should return `200` with a animal', async () => {
+    expect.assertions(3);
+
+    const response = await request().get(`/animals/${animal.id}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.animal).toBeDefined();
+    expect(isAnimal(response.body.animal)).toBe(true);
+  });
+
   test('`POST /animals` should return `422` using an invalid object', async () => {
     expect.assertions(2);
     const response = await request()
