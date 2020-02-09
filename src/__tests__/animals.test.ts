@@ -46,7 +46,7 @@ describe('Animals', () => {
     expect(isAnimal(found)).toBe(true);
   });
 
-  it('`animals` should be able to update an animal', async () => {
+  it('`save` should be able to update an animal', async () => {
     expect.assertions(2);
 
     const oldName = animal.name;
@@ -60,7 +60,7 @@ describe('Animals', () => {
     expect(animal.name === oldName).toBe(false);
   });
 
-  it('`animals` should be able to remove animal', async () => {
+  it('`remove` should be able to remove animal', async () => {
     expect.assertions(1);
     await animal.remove();
 

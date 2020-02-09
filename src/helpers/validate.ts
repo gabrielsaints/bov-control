@@ -14,6 +14,8 @@ abstract class Validate {
 
         if (field === 'body') {
           data = req.body;
+        } else if (field === 'params') {
+          data = req.params;
         }
 
         const response = schema.validate(data);
@@ -24,6 +26,8 @@ abstract class Validate {
 
         if (field === 'body') {
           req.body = response.value;
+        } else if (field === 'params') {
+          req.params = response.value;
         }
 
         next();

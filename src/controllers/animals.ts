@@ -34,6 +34,26 @@ const all: RequestHandler = async (req, res, next) => {
   }
 };
 
+const unique: RequestHandler = async (req, res, next) => {
+  try {
+    if (Object.keys(req.body).length || Object.keys(req.query).length) {
+      throw new RequestError(400, 'Bad request');
+    }
+
+    const animal: IAnimalDocument | null = await Animal.findById(req.params.id);
+
+    if (!animal) {
+      throw new RequestError(404, 'Animal not found');
+    }
+
+    res.status(200).json({
+      animal: await animal.serialize(),
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 const store: RequestHandler = async (req, res, next) => {
   try {
     if (Object.keys(req.params).length || Object.keys(req.query).length) {
@@ -124,26 +144,4 @@ const update: RequestHandler = async (req, res, next) => {
   }
 };
 
-// const drop: RequestHandler = async (req, res, next) => {
-//   try {
-//     const mustBe: string = 'EM VALIDAÇÃO';
-
-//     const animal: IAnimalDocument | null = await Animal.findById(req.params.id);
-
-//     if (!animal) {
-//       throw new RequestError(404, 'Not found');
-//     }
-
-//     if (!animal.status.match(mustBe)) {
-//       throw new RequestError(405, "You aren't allowed to edit this field");
-//     }
-
-//     await animal.remove();
-
-//     res.status(204).send('ok');
-//   } catch (err) {
-//     next(err);
-//   }
-// };
-
-export { all, store, update };
+export { all, unique, store, update };

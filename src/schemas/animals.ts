@@ -36,5 +36,8 @@ const put = Joi.object().keys({
 const del = Joi.object().keys({
   id,
 });
+const getUnique = Joi.object().keys({
+  id,
+});
 
-export { post, put, del };
+export { post, put, del, getUnique };
