@@ -4,6 +4,28 @@ Olá, sou o Gabriel dos Santos Gonçalves e essa é um projeto  **de teste** do 
 
 * [Teste proposto](https://github.com/bovcontrol/milk-hiring/blob/master/desafioBack.md) - Link do teste
 
+# Como iniciar?
+
+**Requisitos:** Docker, Node.js v8+, docker-compose, npm ou yarn
+
+Clone o repositório e preencha as variáveis de ambiente
+```sh
+$ git clone https://github.com/cahtyw/bov-control.git && cd bov-control
+$ cp .env.example .env && nano .env
+```
+
+Inicie a aplicação
+```sh
+$ docker-compose up -d
+$ yarn
+$ yarn start
+```
+
+Teste a aplicação
+```sh
+$ yarn test
+```
+
 
 # Tecnologias
 
