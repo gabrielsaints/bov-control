@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "outDir": "./build",
+    "rootDir": "./src",
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "strict": true,
+    "target": "es6",
+    "preserveSymlinks": true,
+    "allowJs": true
+  },
+  "exclude": ["node_modules", "src/*.test.ts", "src/__tests__/*"],
+  "include": ["src/*"],
+  "lib": ["es2015"],
+  "files": ["src/types.d.ts"]
+}

@@ -1,0 +1,31 @@
+name: bov-control
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x, 13.x]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Run `docker-compose up -d` to create MongoDB Container
+      run: |
+        docker-compose up -d
+    - name: Run `npm install` to install depend
+      run: |
+        npm i
+    - name: Run `npm run lint` to run linter in code
+      run: |
+        npm run lint
+    - name: Start application tests with `npm run jest`
+      run: |
+        npm run jest
+      env:
+        MONGO_URI: "mongodb://127.0.0.1:27017/bov-control"
+        PORT: 3333
